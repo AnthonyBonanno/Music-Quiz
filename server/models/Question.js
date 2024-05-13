@@ -10,6 +10,14 @@ const questionSchema = new Schema({
   image: {
     type: String,
   },
+  audio: {
+    type: String,
+    required: true,
+  },
+  correctAnswer: {
+    type: Boolean,
+    required: true,
+  },
   choices: [choiceSchema],
   hint: hintSchema,
 });

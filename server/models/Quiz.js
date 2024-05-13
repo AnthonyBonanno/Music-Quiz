@@ -14,6 +14,9 @@ const quizSchema = new Schema({
   image: {
     type: String,
   },
+  createdBy: {
+    type: String,
+  },
   questions: [
     {
       type: Schema.Types.ObjectId,
