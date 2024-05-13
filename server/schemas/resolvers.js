@@ -4,12 +4,16 @@ const { signToken, AuthenticationError } = require("../utils/auth");
 const resolvers = {
   Query: {
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate("quizzes");
+      try {
+        return User.findOne({ username }).populate("quizzes");
+      } catch (error) {
+        console.error("Error: ", error)
+      }
     },
     quizzes: async () => {
       return Quiz.find().limit(3);
     },
-    questions: async (parent, { quizId }) => {
+    quiz: async (parent, { quizId }) => {
       return Quiz.findOne({ _id: quizId })
         .populate("questions")
         .populate({ path: "questions", populate: { path: "choices" } })
@@ -18,10 +22,18 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-
-      return { token, user };
+      try {
+        console.log("add user mutation args: ", args)
+        const user = await User.create(args);
+        console.log("This is the user made: ", user)
+        const token = signToken(user);
+        console.log("TOKEN HERE: ", token)
+  
+        return { token, user };
+        
+      } catch (error) {
+        console.error("Error: ", error)
+      }
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -40,6 +52,17 @@ const resolvers = {
 
       return { token, user };
     },
+    // addQuiz: async (parent, { name, description, image }) => {
+    //   if (context.user) {
+    //     const quiz = await Quiz.create({
+    //       name,
+    //       description,
+    //       image,
+    //       createdBy: context.user.username,
+    //       questions,
+    //     })
+    //   }
+    // }
   },
 };
 

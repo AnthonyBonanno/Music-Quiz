@@ -1,16 +1,18 @@
 const typeDefs = `
 type User {
     _id: ID
-    username: String!
-    email: String!
+    username: String
+    email: String
+    password: String
     quizzes: [Quiz]
     }
 
     type Quiz {
         _id: ID
-        name: String
+        name: String!
         description: String
         image: String
+        createdBy: User
         questions: [Question]
     }
 
@@ -18,6 +20,8 @@ type User {
         _id: ID
         name: String
         image: String
+        audio: String!
+        correctAnswer: Boolean!
         choices: [Choice]
         hint: Hint
     }
@@ -31,12 +35,38 @@ type User {
     }
 
     type Query {
-        user()
+        user(username: String!): User
+        quizzes: [Quiz]
+        quiz(quizId: ID!): [Question]
+    }
+
+    type Auth {
+        token: ID!
+        user: User
+    }
+
+    input CreateQuizInput {
+        name: String!
+        description: String
+        image: String
+        createdBy: User
+        questions: [Question]
+    }
+
+    input CreateQuestionInput {
+        name: String
+        image: String
+        audio: String!
+        correctAnswer: Boolean!
+        choices: [Choice]
+        hint: Hint
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
+        addQuiz(createQuiz: CreateQuizInput!): Quiz
+        addQuestion(createQuestion: CreateQuestionInput!): Question
     }
 `;
 
