@@ -24,3 +24,26 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_QUIZ = gql`
+  mutation addQuiz($createQuiz: CreateQuizInput!) {
+    addQuiz(createQuiz: $createQuiz) {
+      _id
+      name
+      description
+      image
+      userId
+      questions {
+        name
+        image
+        audio
+        correctAnswer
+        choices {
+          name
+        }
+        hint {
+          name
+        }
+      }
+    }
+  }
+`;

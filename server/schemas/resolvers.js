@@ -6,12 +6,13 @@ const resolvers = {
     user: async (parent, { username }) => {
       try {
         return User.findOne({ username }).populate("quizzes");
+
       } catch (error) {
-        console.error("Error: ", error)
+        console.error("Error: ", error);
       }
     },
     quizzes: async () => {
-      return Quiz.find().limit(3);
+      return Quiz.find();
     },
     quiz: async (parent, { quizId }) => {
       return Quiz.findOne({ _id: quizId })
@@ -23,16 +24,15 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       try {
-        console.log("add user mutation args: ", args)
+        console.log("add user mutation args: ", args);
         const user = await User.create(args);
-        console.log("This is the user made: ", user)
+        console.log("This is the user made: ", user);
         const token = signToken(user);
-        console.log("TOKEN HERE: ", token)
-  
+        console.log("TOKEN HERE: ", token);
+
         return { token, user };
-        
       } catch (error) {
-        console.error("Error: ", error)
+        console.error("Error: ", error);
       }
     },
     login: async (parent, { email, password }) => {
@@ -49,20 +49,28 @@ const resolvers = {
       }
 
       const token = signToken(user);
-
+      console.log("RESOLVER", user);
       return { token, user };
     },
-    // addQuiz: async (parent, { name, description, image }) => {
-    //   if (context.user) {
-    //     const quiz = await Quiz.create({
-    //       name,
-    //       description,
-    //       image,
-    //       createdBy: context.user.username,
-    //       questions,
-    //     })
-    //   }
-    // }
+    addQuiz: async (parent, {createQuiz}, context) => {
+      if (context.user) {
+        const quiz = await Quiz.create(createQuiz);
+
+        await User.findByIdAndUpdate(context.user._id, {
+          $push: { quizzes: quiz },
+        });
+
+        return quiz;
+      }
+      throw AuthenticationError;
+    },
+    addQuestion: async (parent, args, context) => {
+      if (context.user) {
+        const question = await Question.create(args);
+        return question;
+      }
+      throw AuthenticationError;
+    },
   },
 };
 

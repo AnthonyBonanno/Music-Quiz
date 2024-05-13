@@ -14,8 +14,9 @@ const quizSchema = new Schema({
   image: {
     type: String,
   },
-  createdBy: {
+  userId: {
     type: String,
+    required: true,
   },
   questions: [
     {

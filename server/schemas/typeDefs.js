@@ -1,9 +1,9 @@
 const typeDefs = `
 type User {
     _id: ID
-    username: String
-    email: String
-    password: String
+    username: String!
+    email: String!
+    password: String!
     quizzes: [Quiz]
     }
 
@@ -12,7 +12,7 @@ type User {
         name: String!
         description: String
         image: String
-        createdBy: User
+        userId: String!
         questions: [Question]
     }
 
@@ -42,15 +42,15 @@ type User {
 
     type Auth {
         token: ID!
-        user: User
+        username: User
     }
 
     input CreateQuizInput {
         name: String!
         description: String
         image: String
-        createdBy: User
-        questions: [Question]
+        userId: String!
+        questions: [String]
     }
 
     input CreateQuestionInput {
@@ -58,8 +58,8 @@ type User {
         image: String
         audio: String!
         correctAnswer: Boolean!
-        choices: [Choice]
-        hint: Hint
+        choices: [String]
+        hint: String
     }
 
     type Mutation {
