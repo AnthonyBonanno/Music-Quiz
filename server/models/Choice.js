@@ -6,6 +6,10 @@ const choiceSchema = new Schema({
     required: true,
     trim: true,
   },
+  correctAnswer: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = choiceSchema;

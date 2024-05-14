@@ -11,6 +11,12 @@ const resolvers = {
         console.error("Error: ", error);
       }
     },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate("quizzes");
+      }
+      throw AuthenticationError;
+    },
     quizzes: async () => {
       return Quiz.find();
     },
@@ -49,7 +55,6 @@ const resolvers = {
       }
 
       const token = signToken(user);
-      console.log("RESOLVER", user);
       return { token, user };
     },
     addQuiz: async (parent, {createQuiz}, context) => {
@@ -64,9 +69,15 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    // TESTING IF context.quiz._id WILL WORK WITH if (context.user)
     addQuestion: async (parent, args, context) => {
       if (context.user) {
         const question = await Question.create(args);
+
+        await Quiz.findByIdAndUpdate(context.quiz._id, {
+          $push: { questions: question },
+        });
+
         return question;
       }
       throw AuthenticationError;

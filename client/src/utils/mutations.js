@@ -36,9 +36,9 @@ export const ADD_QUIZ = gql`
         name
         image
         audio
-        correctAnswer
         choices {
           name
+          correctAnswer
         }
         hint {
           name
