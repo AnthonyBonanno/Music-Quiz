@@ -14,10 +14,6 @@ const questionSchema = new Schema({
     type: String,
     required: true,
   },
-  correctAnswer: {
-    type: Boolean,
-    required: true,
-  },
   choices: [choiceSchema],
   hint: hintSchema,
 });

@@ -21,23 +21,17 @@ type User {
         name: String
         image: String
         audio: String!
-        correctAnswer: Boolean!
         choices: [Choice]
         hint: Hint
     }
 
     type Choice {
         name: String
+        correctAnswer: Boolean!
     }
 
     type Hint {
         name: String
-    }
-
-    type Query {
-        user(username: String!): User
-        quizzes: [Quiz]
-        quiz(quizId: ID!): [Question]
     }
 
     type Auth {
@@ -57,9 +51,15 @@ type User {
         name: String
         image: String
         audio: String!
-        correctAnswer: Boolean!
         choices: [String]
         hint: String
+    }
+
+    type Query {
+        user(username: String!): User
+        quizzes: [Quiz]
+        quiz(quizId: ID!): [Question]
+        me: User
     }
 
     type Mutation {
