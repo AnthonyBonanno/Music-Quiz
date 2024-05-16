@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const choiceSchema = require("./Choice");
-const hintSchema = require("./Hint");
 
 const questionSchema = new Schema({
   name: {
@@ -10,14 +9,15 @@ const questionSchema = new Schema({
   image: {
     type: String,
   },
-  audio: {
+  lyric: {
     type: String,
     required: true,
   },
   choices: [choiceSchema],
-  hint: hintSchema,
+  hint: { 
+    type: String, 
+    trim: true 
+  },
 });
 
-const Question = model("Question", questionSchema);
-
-module.exports = Question;
+module.exports = questionSchema;

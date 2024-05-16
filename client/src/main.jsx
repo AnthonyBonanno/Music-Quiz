@@ -9,8 +9,8 @@ import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import Profile from "./pages/Profile";
-// import Quiz from "./pages/Quiz";
-// import Question from "./pages/Question";
+import Quiz from "./pages/Quiz";
+import Question from "./pages/Question";
 import CreateQuiz from "./pages/CreateQuiz";
 import Signup from "./pages/Signup";
 
@@ -33,14 +33,14 @@ const router = createBrowserRouter([
         path: "/me",
         element: <Profile />,
       },
-      // {
-      //   path: "/Quiz",
-      //   element: <Quiz />,
-      // },
-      // {
-      //   path: "/Question",
-      //   element: <Question />,
-      // },
+      {
+        path: "/Quiz/:quizId",
+        element: <Quiz />,
+      },
+      {
+        path: "/Question",
+        element: <Question />,
+      },
       {
         path: "/CreateQuiz",
         element: <CreateQuiz />,

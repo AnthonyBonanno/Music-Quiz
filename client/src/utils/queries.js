@@ -32,7 +32,6 @@ export const QUERY_QUIZZES = gql`
       _id
       name
       description
-      image
       userId
     }
   }
@@ -44,38 +43,16 @@ export const QUERY_SINGLE_QUIZ = gql`
       _id
       name
       description
-      image
       questions {
-        _id
         name
-        image
-        audio
+        lyric
         choices {
           name
           correctAnswer
         }
-        hint {
-          name
-        }
+        hint
       }
     }
   }
 `;
 
-export const QUERY_SINGLE_QUESTION = gql`
-  query getSingleQuestion($questionId: ID!) {
-    question(questionId: $questionId) {
-      _id
-      name
-      image
-      audio
-      choices {
-        name
-        correctAnswer
-      }
-      hint {
-        name
-      }
-    }
-  }
-`
