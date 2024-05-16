@@ -1,18 +1,20 @@
 
-const ChoiceList = ({choices, correctAnswer, increaseScore}) => {
+const ChoiceList = ({choices, increaseScore, countWrongAnswer}) => {
     const handleClick = (selectedChoice) => {
-        if (selectedChoice === correctAnswer) {
+        console.log(selectedChoice);
+        if (selectedChoice.correctAnswer) {
             <p>Correct Answer!</p>
             increaseScore();
         } else {
             <p>Incorrect Answer.</p>
+            countWrongAnswer();
         }
     };
 
     return (
         <>
             {choices.map((choice) => (
-                <button key={choice._id} onClick={() => handleClick(choice)}>
+                <button key={choice.name} onClick={() => handleClick(choice)}>
                     {choice.name}
                 </button>
             ))}

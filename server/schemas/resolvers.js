@@ -23,8 +23,7 @@ const resolvers = {
     quiz: async (parent, { quizId }) => {
       return Quiz.findOne({ _id: quizId })
         .populate("questions")
-        .populate({ path: "questions", populate: { path: "choices" } })
-        .populate({ path: "questions", populate: { path: "hint" } });
+        .populate({ path: "questions", populate: { path: "choices" } });
     },
   },
   Mutation: {
@@ -73,7 +72,7 @@ const resolvers = {
     addQuestion: async (parent, args, context) => {
       if (context.user) {
         const question = await Question.create(args);
-
+        console.log(context.quiz._id);
         await Quiz.findByIdAndUpdate(context.quiz._id, {
           $push: { questions: question },
         });

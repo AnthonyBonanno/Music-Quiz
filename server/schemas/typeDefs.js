@@ -11,18 +11,15 @@ type User {
         _id: ID
         name: String!
         description: String
-        image: String
         userId: String!
         questions: [Question]
     }
 
     type Question {
-        _id: ID
         name: String
-        image: String
-        audio: String!
+        lyric: String!
         choices: [Choice]
-        hint: Hint
+        hint: String
     }
 
     type Choice {
@@ -30,27 +27,21 @@ type User {
         correctAnswer: Boolean!
     }
 
-    type Hint {
-        name: String
-    }
-
     type Auth {
         token: ID!
-        username: User
+        user: User
     }
 
     input CreateQuizInput {
         name: String!
         description: String
-        image: String
         userId: String!
         questions: [String]
     }
 
     input CreateQuestionInput {
         name: String
-        image: String
-        audio: String!
+        lyric: String!
         choices: [String]
         hint: String
     }
@@ -58,7 +49,7 @@ type User {
     type Query {
         user(username: String!): User
         quizzes: [Quiz]
-        quiz(quizId: ID!): [Question]
+        quiz(quizId: ID!): Quiz
         me: User
     }
 

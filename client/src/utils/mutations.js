@@ -30,19 +30,15 @@ export const ADD_QUIZ = gql`
       _id
       name
       description
-      image
       userId
       questions {
         name
-        image
-        audio
+        lyric
         choices {
           name
           correctAnswer
         }
-        hint {
-          name
-        }
+        hint
       }
     }
   }
