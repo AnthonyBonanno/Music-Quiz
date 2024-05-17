@@ -13,6 +13,7 @@ import Quiz from "./pages/Quiz";
 import Question from "./pages/Question";
 import CreateQuiz from "./pages/CreateQuiz";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 // Define the accessible routes, and which components respond to which URL
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/Signup",
         element: <Signup />,
+      },
+      {
+        path: "/Login",
+        element: <Login />,
       },
     ],
   },

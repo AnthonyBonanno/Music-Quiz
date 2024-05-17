@@ -12,7 +12,7 @@ const Quiz = () => {
   console.log(quizId);
 
   const { loading, data } = useQuery(QUERY_SINGLE_QUIZ, {
-    variables: { quizId: quizId }
+    variables: { quizId: quizId },
   });
 
   const quiz = data?.quiz || {};
@@ -20,7 +20,6 @@ const Quiz = () => {
   const handleStart = () => {
     setPhase(1);
     setQuestionIndex(0);
-    console.log("Starting quiz: " + quiz._id);
     console.log(quiz);
   };
 
@@ -32,30 +31,26 @@ const Quiz = () => {
   };
 
   if (loading) {
-    return (
-      <p>loading...</p>
-    )
+    return <p>loading...</p>;
   }
   console.log(quiz);
   return (
     <>
-      {phase == 0 && 
+      {phase == 0 && (
         <>
           <h1>{quiz.name}</h1>
           <img src={quiz.image} />
           <button onClick={handleStart}>Start Quiz!</button>
           <p>{quiz.description}</p>
         </>
-      } 
-      {phase == 1 &&
+      )}
+      {phase == 1 && (
         <Question
           question={quiz.questions[questionIndex]}
           handleNext={handleNext}
         />
-      }
-      {phase == 2 &&
-        <h1>GAME OVER</h1>
-      }
+      )}
+      {phase == 2 && <h1>GAME OVER</h1>}
     </>
   );
 };

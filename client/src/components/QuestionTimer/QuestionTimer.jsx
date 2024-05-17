@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-const Timer = () => {
-  const [seconds, setSeconds] = useState(60);
+const Timer = ({ countWrongAnswer }) => {
+  const [seconds, setSeconds] = useState(2);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
+      } else {
+        countWrongAnswer();
       }
     }, 1000);
 
