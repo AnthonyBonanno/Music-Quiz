@@ -8,6 +8,7 @@ const choiceSchema = new Schema({
   },
   correctAnswer: {
     type: Boolean,
+    default: false,
     required: true,
   },
 });

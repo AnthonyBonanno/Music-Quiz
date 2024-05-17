@@ -6,7 +6,6 @@ const resolvers = {
     user: async (parent, { username }) => {
       try {
         return User.findOne({ username }).populate("quizzes");
-
       } catch (error) {
         console.error("Error: ", error);
       }
@@ -56,7 +55,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addQuiz: async (parent, {createQuiz}, context) => {
+    addQuiz: async (parent, { createQuiz }, context) => {
       if (context.user) {
         const quiz = await Quiz.create(createQuiz);
 
@@ -70,17 +69,24 @@ const resolvers = {
     },
     // TESTING IF context.quiz._id WILL WORK WITH if (context.user)
     addQuestion: async (parent, args, context) => {
+      console.log(args);
       if (context.user) {
-        const question = await Question.create(args);
-        console.log(context.quiz._id);
-        await Quiz.findByIdAndUpdate(context.quiz._id, {
-          $push: { questions: question },
-        });
-
-        return question;
+        return Quiz.findOneAndUpdate(
+          { _id: quizId },
+          {
+            $addToSet: {
+              questions: { name, lyric, choices, hint },
+            },
+          },
+          { new: true }
+        );
       }
       throw AuthenticationError;
     },
+    // addChoice: async (parent, args, context) => {
+    //   if (context.user) {
+    //   }
+    // },
   },
 };
 
