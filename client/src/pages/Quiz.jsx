@@ -9,7 +9,6 @@ const Quiz = () => {
   const [questionIndex, setQuestionIndex] = useState();
 
   const { quizId } = useParams();
-  console.log(quizId);
 
   const { loading, data } = useQuery(QUERY_SINGLE_QUIZ, {
     variables: { quizId: quizId },
@@ -50,7 +49,12 @@ const Quiz = () => {
           handleNext={handleNext}
         />
       )}
-      {phase == 2 && <h1>GAME OVER</h1>}
+      {phase == 2 && (
+        <>
+          <h1>GAME OVER</h1>
+          
+        </>
+      )}
     </>
   );
 };

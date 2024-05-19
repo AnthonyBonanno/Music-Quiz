@@ -8,14 +8,15 @@ export const QUERY_USER = gql`
       email
       quizzes {
         _id
+        name
       }
     }
   }
 `;
 
 export const QUERY_ME = gql`
-  query user($username: String!) {
-    user(username: $username) {
+  query me {
+    me {
       _id
       username
       email
@@ -32,7 +33,7 @@ export const QUERY_QUIZZES = gql`
       _id
       name
       description
-      userId
+      quizCreator
     }
   }
 `;

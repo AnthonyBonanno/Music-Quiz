@@ -1,4 +1,4 @@
-const { User, Quiz, Question } = require("../models");
+const { User, Quiz } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
@@ -67,26 +67,56 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    // TESTING IF context.quiz._id WILL WORK WITH if (context.user)
-    addQuestion: async (parent, args, context) => {
-      console.log(args);
+    addQuestion: async (parent, { createQuestion }, context) => {
       if (context.user) {
-        return Quiz.findOneAndUpdate(
+        const { quizId, name, lyric, choices, hint } = createQuestion;
+
+        const newQuestion = {
+          name,
+          lyric,
+          choices,
+          hint,
+        };
+
+        const updatedQuiz = await Quiz.findOneAndUpdate(
           { _id: quizId },
           {
             $addToSet: {
-              questions: { name, lyric, choices, hint },
+              questions: newQuestion,
             },
           },
           { new: true }
         );
+
+        if (!updatedQuiz) {
+          throw Error("Quiz not found");
+        }
+
+        // Find the newly added question to return it
+        const addedQuestion = updatedQuiz.questions.find(
+          (question) => question.lyric === lyric
+        );
+        console.log(addedQuestion);
+        return addedQuestion;
       }
       throw AuthenticationError;
     },
-    // addChoice: async (parent, args, context) => {
-    //   if (context.user) {
-    //   }
-    // },
+    removeQuiz: async (parent, { quizId }, context) => {
+      if (context.user) {
+        const quiz = await Quiz.findOneAndDelete({
+          _id: quizId,
+          quizCreator: context.user.username,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { quizzes: quiz._id } }
+        );
+
+        return quiz;
+      }
+      throw AuthenticationError;
+    },
   },
 };
 

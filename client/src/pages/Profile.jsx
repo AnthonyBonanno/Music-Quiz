@@ -7,11 +7,13 @@ import QuizList from "../components/QuizList/QuizList";
 
 const Profile = () => {
   const { username: userParam } = useParams();
+  console.log("UserParam: ", userParam);
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
+  console.log(QUERY_USER)
   const user = data?.me || data?.user || {};
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
@@ -29,6 +31,16 @@ const Profile = () => {
       </h4>
     );
   }
+
+  // const { username } = useParams();
+
+  // const { loading, data } = useQuery(QUERY_USER, {
+  //   variables: { username: username }
+  // })
+
+  // const user = data?.user || {};
+
+  // if ()
 
   return (
     <>

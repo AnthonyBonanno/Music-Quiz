@@ -12,11 +12,17 @@ db.once("open", async () => {
     password: "password",
   });
 
+  const user2 = await User.create({
+    username: "esdeath",
+    email: "esdeath@gmail.com",
+    password: "password",
+  });
+
   await Quiz.create(
     {
-      name: "EDM Quiz",
-      description: "Features Madeon and Porter Robinson",
-      userId: user1._id,
+      name: "Porter Robinson and Madeon Quiz",
+      description: "Focused only Madeon and Porter Robinson's songs.",
+      quizCreator: user1.username,
       questions: [
         {
           name: "What's the name of this song?",
@@ -42,31 +48,38 @@ db.once("open", async () => {
           hint: "English is a...",
         },
         {
-          name: "What's the correct lyric?",
-          lyric: "Grey waves.",
+          name: "Which song has this lyric?",
+          lyric: "There is a place in the distance. A place that I've been dreaming of.",
           choices: [
             {
-              name: "choice1",
+              name: "Finale",
               correctAnswer: true,
             },
             {
-              name: "choice2",
+              name: "Shuriken",
               correctAnswer: false,
             },
             {
-              name: "choice3",
+              name: "The City",
               correctAnswer: false,
             },
             {
-              name: "choice4",
+              name: "Shelter",
               correctAnswer: false,
             },
           ],
-          hint: "something something",
+          hint: "Think about people. A lot of people.",
         },
+      ],
+    },
+    {
+      name: "Friends Quiz",
+      description: "A quiz on the artist 'The Bagraiders'",
+      quizCreator: user2.username,
+      questions: [
         {
           name: "what's the name of this song with this lyric?",
-          lyric: "staring out the window...",
+          lyric: "Staring out the window...",
           choices: [
             {
               name: "Jet Aeroplane",
@@ -85,14 +98,62 @@ db.once("open", async () => {
               correctAnswer: false,
             },
           ],
-          hint: "A rare night sky phenonmenon",
+          hint: "A rare night sky phenonmenon.",
         },
-      ],
+      ]
     },
     {
-      name: "Friends Quiz",
-      description: "Quiz on the band Laundry Day",
-      userId: user1._id,
+      name: "Random Quiz",
+      description: "A quiz with no particular artist in mind. Good luck!",
+      quizCreator: user2.username,
+      questions: [
+        {
+          name: "what's the name of this song with this lyric?",
+          lyric: "Staring out the window...",
+          choices: [
+            {
+              name: "Jet Aeroplane",
+              correctAnswer: "false",
+            },
+            {
+              name: "Shooting Stars",
+              correctAnswer: true,
+            },
+            {
+              name: "Tongue Tied",
+              correctAnswer: false,
+            },
+            {
+              name: "Layers",
+              correctAnswer: false,
+            },
+          ],
+          hint: "A rare night sky phenonmenon.",
+        },
+        {
+          name: "Which Daft Punk song has this lyric?",
+          lyric: "Around the world, around the world. Around the world, around the world. Around the world, around the world. Around the world, around the world. Around the world, around the world.",
+          choices: [
+            {
+              name: "Around the Globe",
+              correctAnswer: true,
+            },
+            {
+              name: "Around the Globe (Official Audio)",
+              correctAnswer: false,
+            },
+            {
+              name: "World the Around",
+              correctAnswer: false,
+            },
+            {
+              name: "Around the World",
+              correctAnswer: false,
+            },
+          ],
+          hint: "Around the World.",
+        }
+      ]
     }
   );
 
