@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer/Footer";
+import { Container } from 'react-bootstrap';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -39,17 +40,19 @@ function App() {
   // The Outlet component will conditionally swap between the different pages according to the URL
   return (
     <ApolloProvider client={client}>
-      <nav>
+      <Container className="bg-dark text-white text-right py-4 mt-auto">
         <Nav />
-      </nav>
+      </Container>
       
-      <div className="section">
+      <Container className="bg-dark text-white text-center py-4 mt-auto">
         <Outlet />
-      </div>
+      </Container>
 
-      <div>
-        <Footer />
-      </div>
+      <footer className="bg-dark text-white text-center py-4 mt-auto">
+        <Container>
+          <Footer />
+        </Container>
+      </footer>
       </ApolloProvider>
   );
 }
