@@ -7,16 +7,16 @@ export default function Nav() {
   return (
     <Navbar
       links={[
-        <Link key={1} className="nav-link text-dark" id="menu-item" to="/">
+        <Link key={1} to="/">
           Home Page
         </Link>,
-        <Link key={2} className="nav-link text-dark" id="menu-item" to="/Profile">
+        <Link key={2} to="/Profile">
           Profile
         </Link>,
-        <Link key={3} className="nav-link text-dark" to="/Signup">
+        <Link key={3} to="/Signup">
           Signup
         </Link>,
-        <Link key={4} className="nav-link text-dark" to="/Login">
+        <Link key={4} to="/Login">
           Login
         </Link>,
       ]}
