@@ -11,7 +11,7 @@ type User {
         _id: ID
         name: String!
         description: String
-        userId: String!
+        quizCreator: String
         questions: [Question]
     }
 
@@ -35,15 +35,21 @@ type User {
     input CreateQuizInput {
         name: String!
         description: String
-        userId: String!
+        quizCreator: String
         questions: [String]
     }
 
     input CreateQuestionInput {
+        quizId: ID!
         name: String
         lyric: String!
-        choices: [String]
+        choices: [CreateChoiceInput]
         hint: String
+    }
+
+    input CreateChoiceInput {
+        name: String
+        correctAnswer: Boolean!
     }
 
     type Query {
@@ -58,6 +64,7 @@ type User {
         login(email: String!, password: String!): Auth
         addQuiz(createQuiz: CreateQuizInput!): Quiz
         addQuestion(createQuestion: CreateQuestionInput!): Question
+        removeQuiz(quizId: ID!): Quiz
     }
 `;
 

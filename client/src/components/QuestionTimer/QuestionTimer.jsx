@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const Timer = ({ countWrongAnswer }) => {
-  const [seconds, setSeconds] = useState(2);
+  const [seconds, setSeconds] = useState(10);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -17,7 +17,7 @@ const Timer = ({ countWrongAnswer }) => {
 
   return (
     <>
-        <h2>Time remaining: {seconds}</h2>
+        <h2>Seconds remaining: {seconds}</h2>
     </>
   )
 };

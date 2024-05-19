@@ -15,9 +15,9 @@ const quizSchema = new Schema({
   image: {
     type: String,
   },
-  userId: {
+  quizCreator: {
     type: String,
-    required: true,
+    trim: true,
   },
   questions: [questionSchema],
 });

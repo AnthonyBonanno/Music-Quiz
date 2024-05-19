@@ -6,6 +6,7 @@ export default function HomePage() {
   const { loading, data } = useQuery(QUERY_QUIZZES)
 
   const quizzes = data?.quizzes || {};
+  console.log('DATA:', quizzes)
 
   if (loading) {
     return (
@@ -19,6 +20,8 @@ export default function HomePage() {
           <div style={{border: "1px solid black"}} key={quiz._id}>
             <Link to={`/Quiz/${quiz._id}`}>{quiz.name}</Link>
             <p>{quiz.description}</p>
+            {quiz.quizCreator && <p>Created by: {quiz.quizCreator}</p>}
+            {!quiz.quizCreator && <p>Created by: (anonymous user)</p>}
           </div>
         )}
 

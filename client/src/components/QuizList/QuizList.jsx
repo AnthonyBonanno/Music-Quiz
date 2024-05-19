@@ -1,5 +1,9 @@
 
 const QuizList = (quizzes, handleStart) => {
+    if (!quizzes) {
+        <p>This user has no quizzes!</p>
+    }
+
     return (
         <>
             {quizzes.map((quiz) => (
