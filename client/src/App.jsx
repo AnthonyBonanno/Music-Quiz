@@ -40,13 +40,13 @@ function App() {
   // The Outlet component will conditionally swap between the different pages according to the URL
   return (
     <ApolloProvider client={client}>
-      <Container className="bg-dark text-white text-right py-4 mt-auto">
+      <div className="bg-dark text-white text-right py-4 mt-auto container">
         <Nav />
-      </Container>
+      </div>
       
-      <Container className="bg-dark text-white text-center py-4 mt-auto">
+      <div className="bg-dark text-white text-center py-4 mt-auto container">
         <Outlet />
-      </Container>
+      </div>
 
       <footer className="bg-dark text-white text-center py-4 mt-auto">
         <Container>

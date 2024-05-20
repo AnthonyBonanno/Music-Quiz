@@ -7,16 +7,16 @@ export default function Nav() {
   return (
     <Navbar
       links={[
-        <Link key={1} to="/">
+        <Link key={1} style={{ padding: "20px", fontSize: "30px" }} to="/">
           Home Page
         </Link>,
-        <Link key={2} to="/me">
+        <Link key={2} style={{ padding: "20px", fontSize: "30px" }} to="/me">
           Profile
         </Link>,
-        <Link key={3} to="/Signup">
+        <Link key={3} style={{ padding: "20px", fontSize: "30px" }} to="/Signup">
           Signup
         </Link>,
-        <Link key={4} to="/Login">
+        <Link key={4} style={{ padding: "20px", fontSize: "30px" }} to="/Login">
           Login
         </Link>,
       ]}
