@@ -29,9 +29,9 @@ This was all a very eye-opening experience in how one can create a web app from 
 
 ## Screenshots
 
-![alt text]
+![alt text](https://github.com/AnthonyBonanno/Music-Quiz/blob/main/screenshots/image1.PNG)
 
-![alt text]
+![alt text](https://github.com/AnthonyBonanno/Music-Quiz/blob/main/screenshots/image2.PNG)
 
 
 ## Link to Git Repo and Deployed App
