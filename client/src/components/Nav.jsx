@@ -10,7 +10,7 @@ export default function Nav() {
         <Link key={1} to="/">
           Home Page
         </Link>,
-        <Link key={2} to="/Profile">
+        <Link key={2} to="/me">
           Profile
         </Link>,
         <Link key={3} to="/Signup">
