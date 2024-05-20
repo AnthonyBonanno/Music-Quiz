@@ -32,61 +32,60 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (e) {
-      console.log("error")
+      console.log("error");
       console.error(e);
     }
   };
 
   return (
     <main>
-          <h1>Sign Up</h1>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your username"
-                  name="username"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="********"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+      <h1>Sign Up</h1>
+      <div className="card-body">
+        {data ? (
+          <p>
+            Success! You may now head <Link to="/">back to the homepage.</Link>
+          </p>
+        ) : (
+          <form style={{ padding: "20px" }} onSubmit={handleFormSubmit}>
+            <input
+              style={{ margin: "10px" }}
+              className="form-input"
+              placeholder="Your username"
+              name="username"
+              type="text"
+              value={formState.name}
+              onChange={handleChange}
+            />
+            <input
+              style={{ margin: "10px" }}
+              className="form-input"
+              placeholder="Your email"
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChange}
+            />
+            <input
+              style={{ margin: "10px" }}
+              className="form-input"
+              placeholder="********"
+              name="password"
+              type="password"
+              value={formState.password}
+              onChange={handleChange}
+            />
+            <button
+              className="btn btn-block btn-primary"
+              style={{ cursor: "pointer", margin: "10px" }}
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        )}
 
-            {error && (
-              <div>
-                {error.message}
-              </div>
-            )}
-          </div>
+        {error && <div>{error.message}</div>}
+      </div>
     </main>
   );
 };

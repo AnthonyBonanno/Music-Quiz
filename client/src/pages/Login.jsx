@@ -43,8 +43,8 @@ const Login = () => {
   return (
 
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+          <h1 className="card-header bg-dark text-light p-2">Login</h1>
+          <div className="bg-dark card-body">
             {data ? (
               <p>
                 Success! You may now head{' '}
@@ -53,6 +53,7 @@ const Login = () => {
             ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
+                style={{margin: "10px"}}
                   className="form-input"
                   placeholder="Your email"
                   name="email"
@@ -61,6 +62,7 @@ const Login = () => {
                   onChange={handleChange}
                 />
                 <input
+                style={{margin: "10px"}}
                   className="form-input"
                   placeholder="******"
                   name="password"
@@ -70,7 +72,7 @@ const Login = () => {
                 />
                 <button
                   className="btn btn-block btn-primary"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', margin: "10px" }}
                   type="submit"
                 >
                   Submit

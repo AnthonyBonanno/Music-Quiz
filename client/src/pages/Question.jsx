@@ -2,20 +2,8 @@ import { useState } from "react";
 import ChoiceList from "../components/ChoiceList/ChoiceList";
 import QuestionTimer from "../components/QuestionTimer/QuestionTimer";
 
-const Question = ({ handleNext, question }) => {
-  const [quizScore, setQuizScore] = useState(0);
-  const [wrongAnswer, setWrongAnswer] = useState(0);
+const Question = ({ question, countWrongAnswer, increaseScore }) => {
   const [revealHint, setRevealHint] = useState(false);
-
-  const increaseScore = () => {
-    setQuizScore(quizScore + 1);
-    handleNext();
-  };
-
-  const countWrongAnswer = () => {
-    setWrongAnswer(wrongAnswer + 1);
-    handleNext();
-  };
 
   const hintButton = () => {
     setRevealHint(!revealHint);
@@ -30,7 +18,6 @@ const Question = ({ handleNext, question }) => {
           key={question.lyric}
           countWrongAnswer={countWrongAnswer}
         />
-        <h3>Score: {quizScore}</h3>
         <h2>{question.lyric}</h2>
         <h4>Choose an answer!</h4>
         <ChoiceList

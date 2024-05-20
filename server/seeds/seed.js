@@ -53,7 +53,7 @@ db.once("open", async () => {
           choices: [
             {
               name: "Finale",
-              correctAnswer: true,
+              correctAnswer: false,
             },
             {
               name: "Shuriken",
@@ -61,7 +61,7 @@ db.once("open", async () => {
             },
             {
               name: "The City",
-              correctAnswer: false,
+              correctAnswer: true,
             },
             {
               name: "Shelter",
@@ -70,20 +70,13 @@ db.once("open", async () => {
           ],
           hint: "Think about people. A lot of people.",
         },
-      ],
-    },
-    {
-      name: "Friends Quiz",
-      description: "A quiz on the artist 'The Bagraiders'",
-      quizCreator: user2.username,
-      questions: [
         {
           name: "what's the name of this song with this lyric?",
           lyric: "Staring out the window...",
           choices: [
             {
               name: "Jet Aeroplane",
-              correctAnswer: "false",
+              correctAnswer: false,
             },
             {
               name: "Shooting Stars",
@@ -100,6 +93,14 @@ db.once("open", async () => {
           ],
           hint: "A rare night sky phenonmenon.",
         },
+      ],
+    },
+    {
+      name: "Friends Quiz",
+      description: "A quiz on the artist 'The Bagraiders'",
+      quizCreator: user2.username,
+      questions: [
+        
       ]
     },
     {
@@ -113,7 +114,7 @@ db.once("open", async () => {
           choices: [
             {
               name: "Jet Aeroplane",
-              correctAnswer: "false",
+              correctAnswer: false,
             },
             {
               name: "Shooting Stars",
@@ -136,7 +137,7 @@ db.once("open", async () => {
           choices: [
             {
               name: "Around the Globe",
-              correctAnswer: true,
+              correctAnswer: false,
             },
             {
               name: "Around the Globe (Official Audio)",
@@ -148,7 +149,7 @@ db.once("open", async () => {
             },
             {
               name: "Around the World",
-              correctAnswer: false,
+              correctAnswer: true,
             },
           ],
           hint: "Around the World.",

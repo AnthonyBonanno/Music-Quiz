@@ -1,17 +1,18 @@
 const QuizList = ({ quizzes }) => {
-    if (!quizzes || quizzes.length === 0) {
-        <p>This user has no quizzes!</p>
-    }
+  if (!quizzes || quizzes.length === 0) {
+    <p>This user has no quizzes!</p>;
+  }
 
-    return (
+  return (
+    <>
+      {quizzes.map((quiz) => (
         <>
-            {quizzes.map((quiz) => (
-                <button key={quiz._id}>
-                    {quiz.name}
-                </button>
-            ))}
+          <button key={quiz._id}>{quiz.name}</button>
+          <p>{quiz.description}</p>
         </>
-    )
-}
+      ))}
+    </>
+  );
+};
 
 export default QuizList;
