@@ -103,10 +103,7 @@ const resolvers = {
     },
     removeQuiz: async (parent, { quizId }, context) => {
       if (context.user) {
-        const quiz = await Quiz.findOneAndDelete({
-          _id: quizId,
-          quizCreator: context.user.username,
-        });
+        const quiz = await Quiz.findOneAndDelete({_id: quizId});
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
