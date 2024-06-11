@@ -34,8 +34,6 @@ This was all a very eye-opening experience in how one can create a web app from 
 ![alt text](https://github.com/AnthonyBonanno/Music-Quiz/blob/main/screenshots/image2.PNG)
 
 
-## Link to Git Repo and Deployed App
+## Link to Deployed App
 
-Git Repo: https://github.com/AnthonyBonanno/Music-Quiz
-
-Deployed App: https://music-quiz-10b8cb5c88fb.herokuapp.com/
+https://music-quiz-10b8cb5c88fb.herokuapp.com/

@@ -10,6 +10,8 @@ const CreateQuestionForm = ({ quizId }) => {
   const [hint, setHint] = useState("");
   const [questionCount, setQuestionCount] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
   const [addQuestion] = useMutation(ADD_QUESTION);
 
@@ -17,15 +19,15 @@ const CreateQuestionForm = ({ quizId }) => {
     const newChoices = choices.slice();
     newChoices[index][field] = value;
 
-    if (field === 'correctAnswer' && value) {
-        newChoices.forEach((choice, i) => {
-          if (i !== index) {
-            choice.correctAnswer = false;
-          }
-        });
-      }
+    if (field === "correctAnswer" && value) {
+      newChoices.forEach((choice, i) => {
+        if (i !== index) {
+          choice.correctAnswer = false;
+        }
+      });
+    }
 
-      setChoices(newChoices);
+    setChoices(newChoices);
   };
 
   const handleAddChoice = () => {
@@ -37,9 +39,9 @@ const CreateQuestionForm = ({ quizId }) => {
     newChoices.splice(index, 1);
     setChoices(newChoices);
   };
-  
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     try {
       await addQuestion({
         variables: {
@@ -54,13 +56,16 @@ const CreateQuestionForm = ({ quizId }) => {
       });
       console.log("Question added successfully");
       setQuestionCount(questionCount + 1);
+      // Add question to the questions list on the side
+      setQuestions([...questions, { name, lyric, choices, hint }]);
       // set fields back to null
       setName("");
       setLyric("");
       setChoices([{ name: "", correctAnswer: false }]);
       setHint("");
-      // If questionCount reaches 20, finish creating the quiz
-      if (questionCount + 1 >= 20) {
+      setCurrentQuestionIndex(null);
+      // If questionCount reaches 3, finish creating the quiz
+      if (questionCount + 1 >= 3) {
         setQuizCompleted(true);
       }
     } catch (err) {
@@ -68,8 +73,18 @@ const CreateQuestionForm = ({ quizId }) => {
     }
   };
 
-  const handleFinishQuiz = () => {
+  const handleFinishQuiz = async () => {
+    await handleSubmit();
     setQuizCompleted(true);
+  };
+
+  const handleQuestionClick = (index) => {
+    const question = questions[index];
+    setName(question.name);
+    setLyric(question.lyric);
+    setChoices(question.choices);
+    setHint(question.hint);
+    setCurrentQuestionIndex(index);
   };
 
   if (quizCompleted) {
@@ -78,6 +93,18 @@ const CreateQuestionForm = ({ quizId }) => {
 
   return (
     <section>
+      <aside>
+        <h3>Questions</h3>
+        <ul>
+          {questions.map((question, index) => (
+            <li key={index}>
+              <button type="button" onClick={() => handleQuestionClick(index)}>
+                {question.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </aside>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -113,7 +140,9 @@ const CreateQuestionForm = ({ quizId }) => {
                 }
               />
             </label>
-            <button type="button" onClick={() => handleRemoveChoice(index)}>Remove Choice</button>
+            <button type="button" onClick={() => handleRemoveChoice(index)}>
+              Remove Choice
+            </button>
           </div>
         ))}
         <button type="button" onClick={handleAddChoice}>
@@ -125,10 +154,12 @@ const CreateQuestionForm = ({ quizId }) => {
           onChange={(e) => setHint(e.target.value)}
           placeholder="Hint (If player gets stuck)"
         />
-        <button type="submit">Add Question</button>
+        <button type="submit">
+          {currentQuestionIndex !== null ? "Update Question" : "Add Question"}
+        </button>
       </form>
-      <button onClick={handleFinishQuiz}>Finish Creating Quiz</button>
-      {questionCount >= 20 && <p>You have reached the limit of 20 questions.</p>}
+      <button onClick={handleFinishQuiz}>Save and Finish Quiz</button>
+      {questionCount >= 3 && <p>You have reached the limit of 3 questions.</p>}
     </section>
   );
 };
