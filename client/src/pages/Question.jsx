@@ -24,7 +24,7 @@ const Question = ({ question, countWrongAnswer, increaseScore }) => {
           key={question.lyric}
           countWrongAnswer={countWrongAnswer}
         />
-        <h2>{question.lyric}</h2>
+        <h2>♪ {question.lyric} ♪</h2>
         <h4>Choose an answer!</h4>
         <ChoiceList
           choices={question.choices}

@@ -52,7 +52,7 @@ const Quiz = () => {
           <h1>{quiz.name}</h1>
           <img src={quiz.image} />
           <button onClick={handleStart}>Start Quiz!</button>
-          <p>{quiz.description}</p>
+          <p>Description: {quiz.description}</p>
         </>
       )}
       {phase == 1 && (
