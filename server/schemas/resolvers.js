@@ -101,33 +101,6 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    updateQuestion: async (parent, { updateQuestion }, context) => {
-      if (context.user) {
-        const { id, quizId, name, lyric, choices, hint } = updateQuestion;
-
-        const updatedQuiz = await Quiz.findOneAndUpdate(
-          { _id: quizId, "questions._id": id },
-          {
-            $set: {
-              "questions.$.name": name,
-              "questions.$.lyric": lyric,
-              "questions.$.choices": choices,
-              "questions.$.hint": hint,
-            },
-          },
-          { new: true }
-        );
-
-        if (!updatedQuiz) {
-          throw Error("Question not found");
-        }
-
-        // Find the updated question to return it
-        const updatedQuestion = updatedQuiz.questions.id(id);
-        return updatedQuestion;
-      }
-      throw AuthenticationError;
-    },
     removeQuiz: async (parent, { quizId }, context) => {
       if (context.user) {
         const quiz = await Quiz.findOneAndDelete({ _id: quizId });

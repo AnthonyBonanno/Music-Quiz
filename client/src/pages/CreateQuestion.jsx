@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_QUESTION, UPDATE_QUESTION } from "../utils/mutations";
+import { ADD_QUESTION } from "../utils/mutations";
 import QuizCreated from "../components/QuizCreated/QuizCreated";
 
 const CreateQuestionForm = ({ quizId }) => {
@@ -14,7 +14,6 @@ const CreateQuestionForm = ({ quizId }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(null);
 
   const [addQuestion] = useMutation(ADD_QUESTION);
-  const [updateQuestion] = useMutation(UPDATE_QUESTION);
 
   const handleChoiceChange = (index, field, value) => {
     const newChoices = choices.slice();
@@ -43,27 +42,8 @@ const CreateQuestionForm = ({ quizId }) => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
-  try {
-    if (currentQuestionIndex !== null) {
-      const questionId = questions[currentQuestionIndex]._id;
-      await updateQuestion({
-        variables: {
-          id: questionId,
-          updateQuestion: {
-            quizId,
-            name,
-            lyric,
-            choices,
-            hint,
-          },
-        },
-      });
-      console.log("Question updated successfully");
-      const updatedQuestions = questions.slice();
-      updatedQuestions[currentQuestionIndex] = { _id: questionId, name, lyric, choices, hint };
-      setQuestions(updatedQuestions);
-    } else {
-      const { data } = await addQuestion({
+    try {
+      await addQuestion({
         variables: {
           createQuestion: {
             quizId,
@@ -75,9 +55,9 @@ const CreateQuestionForm = ({ quizId }) => {
         },
       });
       console.log("Question added successfully");
-      setQuestions([...questions, data.addQuestion]);
       setQuestionCount(questionCount + 1);
-    }
+      // Add question to the questions list on the side
+      setQuestions([...questions, { name, lyric, choices, hint }]);
       // set fields back to null
       setName("");
       setLyric("");

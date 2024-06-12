@@ -58,22 +58,6 @@ export const REMOVE_QUIZ = gql`
 export const ADD_QUESTION = gql`
   mutation addQuestion($createQuestion: CreateQuestionInput!) {
     addQuestion(createQuestion: $createQuestion) {
-      _id
-      name
-      lyric
-      choices {
-        name
-        correctAnswer
-      }
-      hint
-    }
-  }
-`;
-
-export const UPDATE_QUESTION = gql`
-  mutation updateQuestion($updateQuestion: UpdateQuestionInput!) {
-    updateQuestion(updateQuestion: $updateQuestion) {
-      _id
       name
       lyric
       choices {
