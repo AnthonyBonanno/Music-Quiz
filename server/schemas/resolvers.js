@@ -28,12 +28,8 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       try {
-        console.log("add user mutation args: ", args);
         const user = await User.create(args);
-        console.log("This is the user made: ", user);
         const token = signToken(user);
-        console.log("TOKEN HERE: ", token);
-
         return { token, user };
       } catch (error) {
         console.error("Error: ", error);
@@ -58,11 +54,9 @@ const resolvers = {
     addQuiz: async (parent, { createQuiz }, context) => {
       if (context.user) {
         const quiz = await Quiz.create(createQuiz);
-
         await User.findByIdAndUpdate(context.user._id, {
           $push: { quizzes: quiz },
         });
-
         return quiz;
       }
       throw AuthenticationError;
@@ -92,12 +86,36 @@ const resolvers = {
           throw Error("Quiz not found");
         }
 
-        // Find the newly added question to return it
         const addedQuestion = updatedQuiz.questions.find(
           (question) => question.lyric === lyric
         );
-        console.log(addedQuestion);
         return addedQuestion;
+      }
+      throw AuthenticationError;
+    },
+    updateQuestion: async (parent, { updateQuestion }, context) => {
+      if (context.user) {
+        const { id, quizId, name, lyric, choices, hint } = updateQuestion;
+
+        const updatedQuiz = await Quiz.findOneAndUpdate(
+          { _id: quizId, "questions._id": id },
+          {
+            $set: {
+              "questions.$.name": name,
+              "questions.$.lyric": lyric,
+              "questions.$.choices": choices,
+              "questions.$.hint": hint,
+            },
+          },
+          { new: true }
+        );
+
+        if (!updatedQuiz) {
+          throw Error("Quiz not found");
+        }
+
+        const updatedQuestion = updatedQuiz.questions.id(id);
+        return updatedQuestion;
       }
       throw AuthenticationError;
     },
