@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const questionSchema = require("./Question");
 
 const quizSchema = new Schema({
   name: {
@@ -19,7 +18,10 @@ const quizSchema = new Schema({
     type: String,
     trim: true,
   },
-  questions: [questionSchema],
+  questions: [{
+    type: Schema.Types.ObjectId,
+    ref: "Question",
+  }],
 });
 
 const Quiz = model("Quiz", quizSchema);
