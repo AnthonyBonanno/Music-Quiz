@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ChoiceList from "../components/ChoiceList/ChoiceList";
 import QuestionTimer from "../components/QuestionTimer/QuestionTimer";
 
 const Question = ({ question, countWrongAnswer, increaseScore }) => {
   const [revealHint, setRevealHint] = useState(false);
+
+  // Use useEffect to reset the revealHint state when the question changes
+  useEffect(() => {
+    setRevealHint(false);
+  }, [question]);
+
 
   const hintButton = () => {
     setRevealHint(!revealHint);
